@@ -4,8 +4,9 @@ import { db } from "../firebase";
 import GoogleLogin from "./googleLogin";
 import EmailLogin from "./emailLogin";
 import EmailSubmit from "./EmailSubmit";
+import Quiz from "./Quiz";
 
-class Main extends React.Component {
+export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,18 +29,27 @@ class Main extends React.Component {
       }
     });
 
+    let list = [];
     db.collection("quiz")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          let new_hash = {};
-          new_hash.text = doc.data().text;
-          new_hash.choice1 = doc.data().choice1;
-          let quiz = self.state.quiz;
-          quiz.push(new_hash);
+          const new_hash = {
+            text: doc.data().text,
+            choice1: doc.data().choice1,
+            choice2: doc.data().choice2,
+          };
+          list.push(new_hash);
+          
+        });
+        console.log("list(1)",list)
+        this.setState({
+          quiz: list,
         });
       });
-    console.log(this.state.quiz);
+      console.log("list(2)", list);
+      
+   
   }
 
   handleSubmit() {
@@ -56,13 +66,14 @@ class Main extends React.Component {
     signIn(email, password);
   }
 
-  logout(){
+  logout() {
     firebase
       .auth()
       .signOut()
       .then(function () {})
       .catch(function (error) {});
-  };
+  } 
+  
 
   handleEmailChange(event) {
     const inputValue = event.target.value;
@@ -81,7 +92,7 @@ class Main extends React.Component {
   }
 
   googleLogin() {
-    let self = this
+
     const provider = new firebase.auth.GoogleAuthProvider();
     if (this.state.isUserEmpty) {
       firebase
@@ -90,7 +101,10 @@ class Main extends React.Component {
         .then(function (result) {})
         .catch(function (error) {});
     } else {
-      self.logout();
+      this.logout()
+      this.setState({
+        isUserEmpty: true,
+      })
     }
   }
 
@@ -110,12 +124,6 @@ class Main extends React.Component {
           handleLogout={() => this.logout()}
           handleEmailChange={(event) => this.handleEmailChange(event)}
         />
-        
-        <br></br>
-        <GoogleLogin
-          isUserEmpty={this.state.isUserEmpty}
-          onClick={() => this.googleLogin()}
-        />
 
         <EmailSubmit
           isUserEmpty={this.state.isUserEmpty}
@@ -123,9 +131,17 @@ class Main extends React.Component {
           handleEmailChange={(event) => this.handleEmailChange(event)}
           handlePasswordChange={(event) => this.handlePasswordChange(event)}
         />
+
+        <GoogleLogin
+          isUserEmpty={this.state.isUserEmpty}
+          onClick={() => this.googleLogin()}
+        />
+
+        <Quiz
+          quiz={this.state.quiz}
+        />
         
 
-        <h1>クイズ</h1>
       </div>
     );
   }
@@ -149,4 +165,6 @@ function signIn(email, password) {
     .catch(function (error) {});
 }
 
-export default Main;
+
+
+
