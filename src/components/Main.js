@@ -1,32 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import firebase from "../firebase";
 import { db } from "../firebase";
-import GoogleLogin from "./googleLogin";
-import EmailLogin from "./emailLogin";
-import EmailSubmit from "./EmailSubmit";
+// import EmailLogin from "./emailLogin";
+// import EmailSubmit from "./EmailSubmit";
 import Quiz from "./Quiz";
+import Header from "./Header";
+import Buttons from "./Buttons";
 
-export default class Main extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loginEmail: "",
-      loginPassword: "",
-      email: "",
-      password: "",
-      isUserEmpty: true,
-      quiz: [],
-    };
-  }
+const Main = () => {
+  const [state, setState] = useState({
+    loginEmail: "",
+    loginPassword: "",
+    email: "",
+    password: "",
+    isUserEmpty: true,
+    quiz: [],
+    count:0,
+  });
 
-  componentDidMount() {
-    let self = this;
+  useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        self.setState({
+        console.log("trueです！");
+        setState({
+          ...state,
           isUserEmpty: false,
         });
       }
+      console.log("useEffect実行中");
     });
 
     let list = [];
@@ -38,133 +39,147 @@ export default class Main extends React.Component {
             text: doc.data().text,
             choice1: doc.data().choice1,
             choice2: doc.data().choice2,
+            choice3: doc.data().choice3,
+            answer: doc.data().answer,
           };
           list.push(new_hash);
-          
         });
-        console.log("list(1)",list)
-        this.setState({
+        setState({
+          ...state,
           quiz: list,
         });
       });
-      console.log("list(2)", list);
-      
-   
-  }
+  }, []);
 
-  handleSubmit() {
-    const email = "kentateacher@gmail.com";
-    const password = "dfasdfadsfa";
-    console.log(email);
-    console.log(password);
-    signUp(email, password);
-  }
+  // const handleSubmit = () => {
+  //   const email = "kentateacher@gmail.com";
+  //   const password = "dfasdfadsfa";
+  //   console.log(email);
+  //   console.log(password);
+  //   signUp(email, password);
+  // };
 
-  handleLogin() {
-    const email = "kentatech@gmail.com";
-    const password = "dfasdfadsfa";
-    signIn(email, password);
-  }
+  // const handleLogin = () => {
+  //   const email = "kentateacher@gmail.com";
+  //   const password = "dfasdfadsfa";
+  //   firebase
+  //     .auth()
+  //     .signInWithEmailAndPassword(email, password)
+  //     .catch(function (error) {});
+  //   setState({
+  //     isUserEmpty: false,
+  //   });
+  // };
 
-  logout() {
+  const logout = () => {
     firebase
       .auth()
       .signOut()
       .then(function () {})
       .catch(function (error) {});
-  } 
-  
+  };
 
-  handleEmailChange(event) {
-    const inputValue = event.target.value;
-    this.setState({
-      email: inputValue,
-    });
-    console.log(this.state.email);
-  }
+  // const handleEmailChange = (event) => {
+  //   const inputValue = event.target.value;
+  //   setState({
+  //     email: inputValue,
+  //   });
+  //   console.log(state.email);
+  // };
 
-  handlePasswordChange(event) {
-    const inputValue = event.target.value;
-    this.setState({
-      password: inputValue,
-    });
-    console.log(this.state.password);
-  }
+  // const handlePasswordChange = (event) => {
+  //   const inputValue = event.target.value;
+  //   setState({
+  //     password: inputValue,
+  //   });
+  //   console.log(state.password);
+  // };
 
-  googleLogin() {
-
+  const googleLogin = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    if (this.state.isUserEmpty) {
+    if (state.isUserEmpty) {
+      console.log("googleでログインします");
       firebase
         .auth()
         .signInWithPopup(provider)
         .then(function (result) {})
         .catch(function (error) {});
     } else {
-      this.logout()
-      this.setState({
-        isUserEmpty: true,
-      })
+      logout();
     }
+  };
+
+  const nextQuestion = () => {
+    const count = state.count + 1
+    setState({
+      ...state,
+      count: count,
+    })
   }
 
-  render() {
-    return (
-      <div>
-        <div>
-          <h1>
-            {this.state.isUserEmpty
-              ? "ログインして下さい"
-              : "ログインしています"}
-          </h1>
-        </div>
-        <EmailLogin
-          isUserEmpty={this.state.isUserEmpty}
-          handleLogin={() => this.handleLogin()}
-          handleLogout={() => this.logout()}
-          handleEmailChange={(event) => this.handleEmailChange(event)}
+  const returnQuestion = () => {
+    const count = state.count - 1
+    setState({
+      ...state,
+      count: count,
+    })
+  }
+
+  return (
+    <div>
+      {/* <div>
+        <h1>
+          {state.isUserEmpty ? "ログインして下さい" : "ログインしています"}
+        </h1>
+      </div> */}
+      {/* {state.isUserEmpty && (
+        <React.Fragment>
+          <EmailLogin
+            isUserEmpty={state.isUserEmpty}
+            handleLogin={() => handleLogin()}
+            handleLogout={() => logout()}
+            handleEmailChange={(event) => handleEmailChange(event)}
+          />
+
+          <EmailSubmit
+            isUserEmpty={state.isUserEmpty}
+            handleSubmit={(event) => handleSubmit(event)}
+            handleEmailChange={(event) => handleEmailChange(event)}
+            handlePasswordChange={(event) => handlePasswordChange(event)}
+          />
+        </React.Fragment>
+      )} */}
+      <Header
+        isUserEmpty={state.isUserEmpty}
+        googleLogin={() => googleLogin()}
+      />
+      <div className="question mx-auto">
+        <Quiz 
+          quiz={state.quiz[state.count]}
         />
 
-        <EmailSubmit
-          isUserEmpty={this.state.isUserEmpty}
-          handleSubmit={(event) => this.handleSubmit(event)}
-          handleEmailChange={(event) => this.handleEmailChange(event)}
-          handlePasswordChange={(event) => this.handlePasswordChange(event)}
+        <Buttons
+          nextQuestion = {() => nextQuestion()}
+          returnQuestion = {() => returnQuestion()}
         />
-
-        <GoogleLogin
-          isUserEmpty={this.state.isUserEmpty}
-          onClick={() => this.googleLogin()}
-        />
-
-        <Quiz
-          quiz={this.state.quiz}
-        />
-        
-
       </div>
-    );
-  }
-}
 
-function signUp(email, password) {
-  console.log("user", firebase.auth().currentUser);
+    </div>
+  );
+};
 
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .catch(function (error) {
-      console.log(error);
-    });
-}
+// function signUp(email, password) {
+//   console.log("user", firebase.auth().currentUser);
 
-function signIn(email, password) {
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .catch(function (error) {});
-}
+//   firebase
+//     .auth()
+//     .createUserWithEmailAndPassword(email, password)
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }
 
+// function signIn(email, password) {
 
-
-
+// }
+export default Main;

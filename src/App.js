@@ -3,11 +3,7 @@ import Main from "./components/Main";
 
 class App extends React.Component {
   render() {
-    return (
-      <div>
-        <Main />
-      </div>
-    );
+    return <Main />;
   }
 }
 
