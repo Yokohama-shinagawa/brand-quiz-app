@@ -23,6 +23,10 @@ const Quiz = (props) => {
                 <p>{props.quiz.choice3}</p>
               </button>
 
+              <button className="question-choice">
+                <p>{props.quiz.choice4}</p>
+              </button>
+
               <div>
                 {props.quiz.answer===1 && (
                   <p>答えは、{props.quiz.choice1}です！</p>
@@ -32,6 +36,9 @@ const Quiz = (props) => {
                 )}
                 {props.quiz.answer===3 && (
                   <p>答えは、{props.quiz.choice3}です！</p>
+                )}
+                {props.quiz.answer===4 && (
+                  <p>答えは、{props.quiz.choice4}です！</p>
                 )}
               </div>
             </div>

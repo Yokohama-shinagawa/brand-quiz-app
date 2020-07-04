@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url(/images/background.jpg);
   background-size: cover;
+  text-decoration: none;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -38,6 +39,7 @@ a{
   width:100%;
   text-align: left;
 }
+
 .question-choice p{
   color:white;
   font-size:20px;

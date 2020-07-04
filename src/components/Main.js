@@ -40,6 +40,7 @@ const Main = () => {
             choice1: doc.data().choice1,
             choice2: doc.data().choice2,
             choice3: doc.data().choice3,
+            choice4: doc.data().choice4,
             answer: doc.data().answer,
           };
           list.push(new_hash);
