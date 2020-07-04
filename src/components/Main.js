@@ -16,6 +16,8 @@ const Main = () => {
     isUserEmpty: true,
     quiz: [],
     count:0,
+    answer:false,
+    correct: false,
   });
 
   useEffect(() => {
@@ -115,6 +117,7 @@ const Main = () => {
     setState({
       ...state,
       count: count,
+      answer:false,
     })
   }
 
@@ -124,6 +127,22 @@ const Main = () => {
       ...state,
       count: count,
     })
+  }
+
+  const showAnswer = (num,answer) => {
+    if(num===answer){
+      setState({
+        ...state,
+        correct: true,
+        answer:true,
+      })
+    }else{
+      setState({
+        ...state,
+        correct: false,
+        answer:true,
+      })   
+    }
   }
 
   return (
@@ -157,11 +176,14 @@ const Main = () => {
       <div className="question mx-auto">
         <Quiz 
           quiz={state.quiz[state.count]}
+          showAnswer={(num,quiz)=>showAnswer(num,quiz)}
+          answer={state.answer}
+          correct={state.correct}
         />
 
         <Buttons
-          nextQuestion = {() => nextQuestion()}
-          returnQuestion = {() => returnQuestion()}
+          nextQuestion = {(num,quiz) => nextQuestion()}
+          returnQuestion = {(num,quiz) => returnQuestion()}
         />
       </div>
 

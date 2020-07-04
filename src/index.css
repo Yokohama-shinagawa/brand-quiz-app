@@ -47,5 +47,12 @@ a{
   margin:0;
 }
 
+.answer-discription{
+  border: #52c41a 4px solid;
+  margin: 15px 0 15px 0;
+  padding:10px;
+  font-weight: bold;
+}
+
 
 
