@@ -11,17 +11,18 @@ const Quiz = (props) => {
           <div>
             <h3>{props.quiz.text}</h3>
             <div className="site-button-ghost-wrapper">
-              <div className="question-choice">
+              <button className="question-choice">
                 <p>{props.quiz.choice1}</p>
-              </div>
+              </button>
               
-              <div className="question-choice">
+              <button className="question-choice">
                 <p>{props.quiz.choice2}</p>
-              </div>
+              </button>
 
-              <div className="question-choice">
+              <button className="question-choice">
                 <p>{props.quiz.choice3}</p>
-              </div>
+              </button>
+
               <div>
                 {props.quiz.answer===1 && (
                   <p>答えは、{props.quiz.choice1}です！</p>
