@@ -31,7 +31,9 @@ a{
 }
 
 .question-choice{
-  background-color:#52c41a;
+  background-color:white;
+  color:black;
+  border: #52c41a 4px solid;
   padding:10px;
   border-radius:10px;
   margin-top:20px;
@@ -41,7 +43,6 @@ a{
 }
 
 .question-choice p{
-  color:white;
   font-size:20px;
   font-weight:bold;
   margin:0;
@@ -53,6 +54,12 @@ a{
   padding:10px;
   font-weight: bold;
 }
+.button-field{
+  text-align:center;
+}
 
+.quiz-button{
+  margin:40px 80px;
+}
 
 

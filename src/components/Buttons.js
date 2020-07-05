@@ -3,13 +3,15 @@ import { Button } from 'antd';
 
 const Buttons = (props) => {
     return(
-        <div>        
+        <div className="button-field">        
             <Button type="primary" danger
+                className="quiz-button"
                 onClick = {props.returnQuestion}
             >
                 戻る
             </Button>
             <Button type="primary"
+                className="quiz-button"
                 onClick = {props.nextQuestion}
             >
                     次へ
