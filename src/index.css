@@ -30,10 +30,7 @@ a{
   font-weight:bold;
 }
 
-.question-choice{
-  background-color:white;
-  color:black;
-  border: #52c41a 4px solid;
+.choice{
   padding:10px;
   border-radius:10px;
   margin-top:20px;
@@ -42,12 +39,28 @@ a{
   text-align: left;
 }
 
-.question-choice p{
+.question-choice{
+  background-color:white;
+  color:black;
+  border: #52c41a 4px solid;
+}
+
+.question-correct-choice{
+  background-color:#52c41a;
+  color:white;
+  border: #52c41a 4px solid;
+}
+
+.question-wrong-choice{
+  background-color:red;
+  color:white;
+  border:red 4px solid;
+}
+.choice p{
   font-size:20px;
   font-weight:bold;
   margin:0;
 }
-
 .answer-discription{
   border: #52c41a 4px solid;
   margin: 15px 0 15px 0;

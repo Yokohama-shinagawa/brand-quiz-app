@@ -2,6 +2,17 @@ import React from "react";
 
 const Quiz = (props) => {
 
+  const attachClass = (choiceNum,correctNum,answerNum) => {
+    console.log(choiceNum,correctNum,answerNum)
+    if(choiceNum === correctNum){
+      return "choice question-correct-choice"
+    }else if(choiceNum === answerNum){
+      return "choice question-wrong-choice"
+    }else{
+      return "choice question-choice"
+    }
+  }
+
   return (
     <React.Fragment>
       
@@ -10,35 +21,71 @@ const Quiz = (props) => {
         {(props.quiz) && (
           <div>
             <h3>{props.quiz.text}</h3>
-            <div className="site-button-ghost-wrapper">
-              <button 
-                className="question-choice"
-                onClick = {() => props.showAnswer(1,props.quiz.answer)}  
-              >
-                <p>{props.quiz.choice1}</p>
-              </button>
+
+            <div>
+              {props.answer || (
+                <div>
+                  <button 
+                    className="choice question-choice"
+                    onClick = {() => props.showAnswer(1,props.quiz.answer)}  
+                  >
+                    <p>{props.quiz.choice1}</p>
+                  </button>
+                  
+                  <button 
+                    className="choice question-choice"
+                    onClick = {() => props.showAnswer(2,props.quiz.answer)}  
+                  >
+                    <p>{props.quiz.choice2}</p>
+                  </button>
+    
+                  <button 
+                    className="choice question-choice"
+                    onClick = {() => props.showAnswer(3,props.quiz.answer)}  
+                  >
+                    <p>{props.quiz.choice3}</p>
+                  </button>
+    
+                  <button 
+                    className="choice question-choice"
+                    onClick = {() => props.showAnswer(4,props.quiz.answer)}  
+                  >
+                    <p>{props.quiz.choice4}</p>
+                  </button>
+                </div>
+              )}
               
-              <button 
-                className="question-choice"
-                onClick = {() => props.showAnswer(2,props.quiz.answer)}  
-              >
-                <p>{props.quiz.choice2}</p>
-              </button>
-
-              <button 
-                className="question-choice"
-                onClick = {() => props.showAnswer(3,props.quiz.answer)}  
-              >
-                <p>{props.quiz.choice3}</p>
-              </button>
-
-              <button 
-                className="question-choice"
-                onClick = {() => props.showAnswer(4,props.quiz.answer)}  
-              >
-                <p>{props.quiz.choice4}</p>
-              </button>
-
+              {props.answer && (
+                <div>
+                  <button 
+                    className={attachClass(1,props.quiz.answer,props.answerNumber)}
+                    onClick = {() => props.showAnswer(1,props.quiz.answer)}  
+                  >
+                    <p>{props.quiz.choice1}</p>
+                  </button>
+                  
+                  <button 
+                    className={attachClass(2,props.quiz.answer,props.answerNumber)}
+                    onClick = {() => props.showAnswer(2,props.quiz.answer)}  
+                  >
+                    <p>{props.quiz.choice2}</p>
+                  </button>
+    
+                  <button 
+                    className={attachClass(3,props.quiz.answer,props.answerNumber)}
+                    onClick = {() => props.showAnswer(3,props.quiz.answer)}  
+                  >
+                    <p>{props.quiz.choice3}</p>
+                  </button>
+    
+                  <button 
+                    className={attachClass(4,props.quiz.answer,props.answerNumber)}
+                    onClick = {() => props.showAnswer(4,props.quiz.answer)}  
+                  >
+                    <p>{props.quiz.choice4}</p>
+                  </button>
+                </div>
+              )}
               {props.answer && (
                 <div className="answer-discription">
                   {props.correct && (

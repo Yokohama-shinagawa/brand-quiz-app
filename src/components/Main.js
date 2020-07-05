@@ -18,6 +18,7 @@ const Main = () => {
     count:0,
     answer:false,
     correct: false,
+    answerNumber: 100,
   });
 
   useEffect(() => {
@@ -133,12 +134,14 @@ const Main = () => {
     if(num===answer){
       setState({
         ...state,
+        answerNumber: num,
         correct: true,
         answer:true,
       })
     }else{
       setState({
         ...state,
+        answerNumber: num,
         correct: false,
         answer:true,
       })   
@@ -179,6 +182,7 @@ const Main = () => {
           showAnswer={(num,quiz)=>showAnswer(num,quiz)}
           answer={state.answer}
           correct={state.correct}
+          answerNumber={state.answerNumber}
         />
 
         <Buttons
