@@ -176,6 +176,7 @@ const Main = () => {
         isUserEmpty={state.isUserEmpty}
         googleLogin={() => googleLogin()}
       />
+      
       <div className="question mx-auto">
         <Quiz 
           quiz={state.quiz[state.count]}
