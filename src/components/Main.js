@@ -184,6 +184,7 @@ const Main = () => {
           answer={state.answer}
           correct={state.correct}
           answerNumber={state.answerNumber}
+          count = {state.count}
         />
 
         <Buttons

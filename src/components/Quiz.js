@@ -16,7 +16,7 @@ const Quiz = (props) => {
   return (
     <React.Fragment>
       
-        <h1>Question</h1>
+        <h1>Question{props.count+1}</h1>
 
         {(props.quiz) && (
           <div>
