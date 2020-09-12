@@ -10,6 +10,22 @@ const Header = (props) => {
             googleLogin={props.googleLogin}
           />
         </div>
+        <style jsx glabal>{`
+              .header{
+                  background-color:white;
+                  line-height: 60px;
+                  width:100vw;
+              }
+              
+              .header-button{
+                  display: inline-block;
+              }
+              
+              .header a{
+                  color:black;
+              }
+        `}
+        </style>
       </div>
   );
 };

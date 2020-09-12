@@ -121,6 +121,13 @@ const Quiz = (props) => {
           </div>
         </div>
       )}
+      <style jsx global>{`     
+          .question-choice{
+            background-color:white;
+            color:black;
+            border: #52c41a 4px solid;
+          }
+      `}</style>
     </React.Fragment>
   );
 };

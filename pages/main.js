@@ -151,20 +151,6 @@ const Main = () => {
             monospace;
         }
         
-        .header{
-            background-color:white;
-            line-height: 60px;
-            width:100vw;
-        }
-        
-        .header-button{
-            display: inline-block;
-        }
-        
-        .header a{
-            color:black;
-        }
-        
         .question{
             margin-top:20px;
             padding:20px;
@@ -183,12 +169,6 @@ const Main = () => {
             display: block;
             width:100%;
             text-align: left;
-        }
-        
-        .question-choice{
-            background-color:white;
-            color:black;
-            border: #52c41a 4px solid;
         }
         
         .question-correct-choice{
