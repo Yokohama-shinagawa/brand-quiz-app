@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-    Link,
-} from "react-router-dom";
 import { Button } from 'antd';
 
 const Top = () => {
@@ -14,7 +11,7 @@ const Top = () => {
                     fdskafjkldasjkfjkjdskfjkjdskfjkdsjfkjdskajkldjfjrhgurhuvknajfghrjolaks
                 </p>
                 <Button type="primary">
-                    <Link to="/main">クイズを始める</Link>
+                    <p>クイズを始める</p>
                 </Button>
             </div>
     )
