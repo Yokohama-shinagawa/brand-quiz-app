@@ -16,6 +16,12 @@ const Quiz = (props) => {
     <React.Fragment>
       <h1>Question</h1>
 
+      {props.length === props.count && (
+        <div>
+          クイズはおしまいです
+        </div>
+      )}
+
       {props.quiz && (
         <div>
           <h3>{props.quiz.text}</h3>
