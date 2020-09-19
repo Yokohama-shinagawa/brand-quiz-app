@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React from \"react\";\n\nvar GoogleLogin = function GoogleLogin(props) {\n  return __jsx(\"a\", {\n    type: \"primary\",\n    onClick: props.googleLogin\n  }, props.isUserEmpty ? \"Googleアカウントで新規登録・ログイン\" : \"ログアウト\");\n};\n\nexport default GoogleLogin;","map":null,"metadata":{},"sourceType":"module"}
